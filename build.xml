@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<project name="TestObjectBuildTrigger" default="downloadSuiteReport"
+	basedir=".">
+	<taskdef name="login" classname="org.testobject.ant.LoginTask" />
+	<taskdef name="uploadVersion" classname="org.testobject.ant.UploadVersionTask" />
+	<taskdef name="activateVersion" classname="org.tes`tobject.ant.ActivateVersionTask" />
+	<taskdef name="runCheckup" classname="org.testobject.ant.RunCheckupTask" />
+	<taskdef name="startTestSuite" classname="org.testobject.ant.StartTestSuiteTask" />
+	<taskdef name="downloadSuiteReport" classname="org.testobject.ant.GetSuiteReportTask" />
+
+	<!-- start deprecated tasks -->
+	<taskdef name="startBatch" classname="org.testobject.ant.StartBatchTask" />
+	<taskdef name="downloadBatchReport" classname="org.testobject.ant.GetBatchReportTask" />
+	<!-- end deprecated tasks -->
+
+	<property name="testobject.http.ssl" value="false" />
+	<property name="testobject.http.endpoint" value="head.testobject.org" />
+	<property name="testobject.user" value="foobar" />
+	<property name="testobject.project" value="ant-test-project" />
+
+	<target name="login">
+		<login username="foobar" password="foobar" />
+	</target>
+
+	<target name="uploadVersion" depends="login">
+		<uploadVersion name="new version" file="de.komoot.android.apk"
+			response="new.version" />
+	</target>
+
+	<target name="activateVersion" depends="uploadVersion">
+		<activateVersion versionId="${new.version}" />
+	</target>
+
+	<target name="runCheckup" depends="activateVersion">
+		<runCheckup />
+	</target>
+
+	<target name="startTestSuite" depends="activateVersion">
+		<startTestSuite testSuiteId="1" response="new.testSuite" />
+	</target>
+
+	<target name="downloadSuiteReport" depends="startTestSuite">
+		<downloadSuiteReport suiteReportId="${new.testSuite}" />
+	</target>
+
+	<!-- start deprecated tasks -->
+
+	<target name="startBatch" depends="activateVersion">
+		<startBatch batchId="1" response="new.batch" />
+	</target>
+
+	<target name="downloadBatchReport" depends="startBatch">
+		<downloadBatchReport batchReportId="${new.batch}" />
+	</target>
+
+	<!-- end deprecated tasks -->
+
+</project>
