@@ -9,9 +9,9 @@ public class DownloadBatchReport extends AbstractTask {
 
 	@Override
 	public void execute() throws BuildException {
-		BatchReport batchReport = client.getBatchReport(getUserProperty(), getAppProperty(), batchId);
-
-		log("batch result: " + batchReport.getStatus());
+//		BatchReport batchReport = client.getBatchReport(getUserProperty(), getAppProperty(), batchId);
+//
+//		log("batch result: " + batchReport.getStatus());
 	}
 
 	public void setBatchId(long batchId) {

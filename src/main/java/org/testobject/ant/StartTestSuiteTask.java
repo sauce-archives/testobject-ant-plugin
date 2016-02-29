@@ -11,10 +11,10 @@ public class StartTestSuiteTask extends AbstractTask {
 
 	@Override
 	public void execute() throws BuildException {
-		long suiteReportId = client.startBatch(getUserProperty(), getAppProperty(), testSuiteId);
-		getProject().setProperty(response, Long.toString(suiteReportId));
-
-		log(String.format("test suite %d started, suiteReport id is %d", testSuiteId, suiteReportId), Project.MSG_INFO);
+//		long suiteReportId = client.startBatch(getUserProperty(), getAppProperty(), testSuiteId);
+//		getProject().setProperty(response, Long.toString(suiteReportId));
+//
+//		log(String.format("test suite %d started, suiteReport id is %d", testSuiteId, suiteReportId), Project.MSG_INFO);
 
 	}
 

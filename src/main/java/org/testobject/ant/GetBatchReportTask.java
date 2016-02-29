@@ -20,30 +20,30 @@ public class GetBatchReportTask extends AbstractTask {
 
 	@Override
 	public void execute() throws BuildException {
-		log("the 'downloadBatchReport' task is deprecated. Please use the task 'downloadSuiteReport' instead.", Project.MSG_WARN);
-
-		BatchReport batchReport = client.getBatchReport(getUserProperty(), getAppProperty(), batchReportId);
-
-		Map<String, String> devices = getDevices(batchReport);
-		Map<Long, TestSuites.TestSuite> tests = getTests(batchReport);
-
-		processReportToTestCases(batchReport, devices, tests);
-
-		TestSuites testSuites = new TestSuites(batchReport.getName());
-		for (TestSuites.TestSuite testSuite : tests.values()) {
-			testSuites.tests += testSuite.tests;
-			testSuites.errors += testSuite.errors;
-			testSuites.testSuites.add(testSuite);
-		}
-
-		testSuites.time = batchReport.getDuration();
-
-		log(String.format("batch status: %s tests: %d errors: %d", batchReport.getStatus(), testSuites.tests, testSuites.errors),
-				Project.MSG_INFO);
-
-		getProject().setProperty(this.status, batchReport.getStatus().toString());
-		getProject().setProperty(this.tests, Integer.toString(testSuites.tests));
-		getProject().setProperty(this.errors, Integer.toString(testSuites.errors));
+//		log("the 'downloadBatchReport' task is deprecated. Please use the task 'downloadSuiteReport' instead.", Project.MSG_WARN);
+//
+//		BatchReport batchReport = client.getBatchReport(getUserProperty(), getAppProperty(), batchReportId);
+//
+//		Map<String, String> devices = getDevices(batchReport);
+//		Map<Long, TestSuites.TestSuite> tests = getTests(batchReport);
+//
+//		processReportToTestCases(batchReport, devices, tests);
+//
+//		TestSuites testSuites = new TestSuites(batchReport.getName());
+//		for (TestSuites.TestSuite testSuite : tests.values()) {
+//			testSuites.tests += testSuite.tests;
+//			testSuites.errors += testSuite.errors;
+//			testSuites.testSuites.add(testSuite);
+//		}
+//
+//		testSuites.time = batchReport.getDuration();
+//
+//		log(String.format("batch status: %s tests: %d errors: %d", batchReport.getStatus(), testSuites.tests, testSuites.errors),
+//				Project.MSG_INFO);
+//
+//		getProject().setProperty(this.status, batchReport.getStatus().toString());
+//		getProject().setProperty(this.tests, Integer.toString(testSuites.tests));
+//		getProject().setProperty(this.errors, Integer.toString(testSuites.errors));
 
 		//		saveReportToFile(testSuites);
 

@@ -11,12 +11,12 @@ public class StartBatchTask extends AbstractTask {
 
 	@Override
 	public void execute() throws BuildException {
-		log("the 'startBatch' task is deprecated. Please use the task 'startTestSuite' instead.", Project.MSG_WARN);
-
-		long batchReportId = client.startBatch(getUserProperty(), getAppProperty(), batchId);
-		getProject().setProperty(response, Long.toString(batchReportId));
-
-		log(String.format("batch %d started, reportid is %d", batchId, batchReportId), Project.MSG_INFO);
+//		log("the 'startBatch' task is deprecated. Please use the task 'startTestSuite' instead.", Project.MSG_WARN);
+//
+//		long batchReportId = client.startBatch(getUserProperty(), getAppProperty(), batchId);
+//		getProject().setProperty(response, Long.toString(batchReportId));
+//
+//		log(String.format("batch %d started, reportid is %d", batchId, batchReportId), Project.MSG_INFO);
 
 	}
 

@@ -46,63 +46,62 @@ public class UploadVersionTask extends AbstractTask {
 
 		TestSuiteResource.InstrumentationTestSuiteRequest instrumentationTestSuiteRequest = new TestSuiteResource.InstrumentationTestSuiteRequest(runAsPackage);
 
-
 		// there should be no need to re-login here
 
 		try {
 			client.updateInstrumentationTestSuite(team, app, testSuite, appApkFile, testApkFile, instrumentationTestSuiteRequest);
 			log(String.format("Uploaded appAPK : %s and testAPK : %s", appApkFile.getAbsolutePath(), testApkFile.getAbsolutePath()));
 		} catch (Exception e) {
-			log(String.format("unable to update testSuite %s", testSuite)); // TODO add exception
+			throw new BuildException(String.format("unable to update testSuite %s", testSuite));
 		}
 
-		long start = System.currentTimeMillis();
-
-		long suiteReportId = client.startInstrumentationTestSuite(team, app, testSuite);
-
-		TestSuiteReport suiteReport = client.waitForSuiteReport(team, app, suiteReportId);
-
-		writeSuiteReportXML(client, team, app, suiteReportId);
-
-		long end = System.currentTimeMillis();
-
-		String executionTime = getExecutionTime(start, end);
-
-		int errors = countErrors(suiteReport);
-		String downloadURL = String.format("%s/users/%s/projects/%s/automationReports/%d/download/zip", baseUrl, team, app, suiteReportId);
-		String reportURL = String
-				.format("%s/#/%s/%s/espresso/%d/reports/%d", baseUrl.replace("/api/rest", ""), team, app, testSuite, suiteReportId);
-
-		StringBuilder msg = new StringBuilder();
-
-		msg.append("\n");
-		msg.append(getTestsList(suiteReport));
-		msg.append("----------------------------------------------------------------------------------");
-		msg.append("\n");
-		msg.append(String.format("Ran %d tests in %s", suiteReport
-				.getReports().size(), executionTime));
-		msg.append("\n");
-		msg.append(suiteReport.getStatus());
-		msg.append("\n");
-
-		if (errors > 0) {
-			msg.append(String.format("List of failed Test (Total errors : %d)", errors));
-			msg.append("\n");
-			msg.append(failedTestsList(suiteReport, reportURL));
-			msg.append("\n");
-		}
-
-		msg.append(String.format("DownloadZIP URL: '%s'", downloadURL));
-		msg.append("\n");
-		msg.append(String.format("Report URL : '%s'", reportURL));
-
-		if (errors == 0) {
-			log(msg.toString());
-		} else {
+//		long start = System.currentTimeMillis();
+//
+//		long suiteReportId = client.startInstrumentationTestSuite(team, app, testSuite);
+//
+//		TestSuiteReport suiteReport = client.waitForSuiteReport(team, app, suiteReportId);
+//
+//		writeSuiteReportXML(client, team, app, suiteReportId);
+//
+//		long end = System.currentTimeMillis();
+//
+//		String executionTime = getExecutionTime(start, end);
+//
+//		int errors = countErrors(suiteReport);
+//		String downloadURL = String.format("%s/users/%s/projects/%s/automationReports/%d/download/zip", baseUrl, team, app, suiteReportId);
+//		String reportURL = String
+//				.format("%s/#/%s/%s/espresso/%d/reports/%d", baseUrl.replace("/api/rest", ""), team, app, testSuite, suiteReportId);
+//
+//		StringBuilder msg = new StringBuilder();
+//
+//		msg.append("\n");
+//		msg.append(getTestsList(suiteReport));
+//		msg.append("----------------------------------------------------------------------------------");
+//		msg.append("\n");
+//		msg.append(String.format("Ran %d tests in %s", suiteReport
+//				.getReports().size(), executionTime));
+//		msg.append("\n");
+//		msg.append(suiteReport.getStatus());
+//		msg.append("\n");
+//
+//		if (errors > 0) {
+//			msg.append(String.format("List of failed Test (Total errors : %d)", errors));
+//			msg.append("\n");
+//			msg.append(failedTestsList(suiteReport, reportURL));
+//			msg.append("\n");
+//		}
+//
+//		msg.append(String.format("DownloadZIP URL: '%s'", downloadURL));
+//		msg.append("\n");
+//		msg.append(String.format("Report URL : '%s'", reportURL));
+//
+//		if (errors == 0) {
+//			log(msg.toString());
+//		} else {
 //			if (extension.getFailOnError()) {
 //				throw new GradleScriptException("failure during test suite execution of test suite " + testSuite,
 //						new Exception(msg.toString()));
-		}
+//		}
 
 
 //		try {

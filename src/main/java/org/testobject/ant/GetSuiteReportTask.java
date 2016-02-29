@@ -20,28 +20,28 @@ public class GetSuiteReportTask extends AbstractTask {
 
 	@Override
 	public void execute() throws BuildException {
-		BatchReport suiteReport = client.getBatchReport(getUserProperty(), getAppProperty(), suiteReportId);
-
-		Map<String, String> devices = getDevices(suiteReport);
-		Map<Long, TestSuites.TestSuite> tests = getTests(suiteReport);
-
-		processReportToTestCases(suiteReport, devices, tests);
-
-		TestSuites testSuites = new TestSuites(suiteReport.getName());
-		for (TestSuites.TestSuite testSuite : tests.values()) {
-			testSuites.tests += testSuite.tests;
-			testSuites.errors += testSuite.errors;
-			testSuites.testSuites.add(testSuite);
-		}
-
-		testSuites.time = suiteReport.getDuration();
-
-		log(String.format("test suite status: %s tests: %d errors: %d", suiteReport.getStatus(), testSuites.tests, testSuites.errors),
-				Project.MSG_INFO);
-
-		getProject().setProperty(this.status, suiteReport.getStatus().toString());
-		getProject().setProperty(this.tests, Integer.toString(testSuites.tests));
-		getProject().setProperty(this.errors, Integer.toString(testSuites.errors));
+//		BatchReport suiteReport = client.getBatchReport(getUserProperty(), getAppProperty(), suiteReportId);
+//
+//		Map<String, String> devices = getDevices(suiteReport);
+//		Map<Long, TestSuites.TestSuite> tests = getTests(suiteReport);
+//
+//		processReportToTestCases(suiteReport, devices, tests);
+//
+//		TestSuites testSuites = new TestSuites(suiteReport.getName());
+//		for (TestSuites.TestSuite testSuite : tests.values()) {
+//			testSuites.tests += testSuite.tests;
+//			testSuites.errors += testSuite.errors;
+//			testSuites.testSuites.add(testSuite);
+//		}
+//
+//		testSuites.time = suiteReport.getDuration();
+//
+//		log(String.format("test suite status: %s tests: %d errors: %d", suiteReport.getStatus(), testSuites.tests, testSuites.errors),
+//				Project.MSG_INFO);
+//
+//		getProject().setProperty(this.status, suiteReport.getStatus().toString());
+//		getProject().setProperty(this.tests, Integer.toString(testSuites.tests));
+//		getProject().setProperty(this.errors, Integer.toString(testSuites.errors));
 
 		//		saveReportToFile(testSuites);
 

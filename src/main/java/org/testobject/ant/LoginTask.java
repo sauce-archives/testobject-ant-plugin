@@ -13,7 +13,7 @@ public class LoginTask extends AbstractTask {
 		try {
 			log(String.format("trying to log in with user %s and password %s", username, password), Project.MSG_INFO);
 			client.login(username, password);
-			getProject().setProperty(Constants.PROPERTY_SESSION_ID, client.getSessionId());
+//			getProject().setProperty(Constants.PROPERTY_SESSION_ID, client.());
 
 			log(String.format("user %s successfully logged in", username), Project.MSG_INFO);
 		} catch (Exception e) {
