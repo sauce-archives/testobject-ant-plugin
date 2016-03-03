@@ -9,11 +9,6 @@
 	<taskdef name="startTestSuite" classname="org.testobject.ant.StartTestSuiteTask" />
 	<taskdef name="downloadSuiteReport" classname="org.testobject.ant.GetSuiteReportTask" />
 
-	<!-- start deprecated tasks -->
-	<taskdef name="startBatch" classname="org.testobject.ant.StartBatchTask" />
-	<taskdef name="downloadBatchReport" classname="org.testobject.ant.GetBatchReportTask" />
-	<!-- end deprecated tasks -->
-
 	<property name="testobject.http.ssl" value="false" />
 	<property name="testobject.http.endpoint" value="head.testobject.org" />
 	<property name="testobject.user" value="foobar" />
@@ -24,7 +19,7 @@
 	</target>
 
 	<target name="uploadVersion" depends="login">
-		<uploadVersion name="new version" file="de.komoot.android.apk"
+		<uploadVersion name="new version"
 			response="new.version" />
 	</target>
 
@@ -37,7 +32,7 @@
 	</target>
 
 	<target name="startTestSuite" depends="activateVersion">
-		<startTestSuite testSuiteId="1" response="new.testSuite" />
+		<startTestSuite testSuiteId="1" />
 	</target>
 
 	<target name="downloadSuiteReport" depends="startTestSuite">

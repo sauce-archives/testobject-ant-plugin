@@ -1,14 +1,12 @@
 package org.testobject.ant;
 
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Project;
+import org.apache.tools.ant.PropertyHelper;
 import org.testobject.api.TestObjectClient;
 import org.testobject.rest.api.TestSuiteReport;
 import org.testobject.rest.api.TestSuiteResource;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -44,17 +42,18 @@ public class UploadVersionTask extends AbstractTask {
 		File appApkFile = new File("app.apk");
 		File testApkFile = new File("test.apk");
 
-		TestSuiteResource.InstrumentationTestSuiteRequest instrumentationTestSuiteRequest = new TestSuiteResource.InstrumentationTestSuiteRequest(runAsPackage);
+		TestObjectClient client = (TestObjectClient)PropertyHelper.getProperty(getProject(), "org.testobject.client");
 
-		// there should be no need to re-login here
+		TestSuiteResource.InstrumentationTestSuiteRequest instrumentationTestSuiteRequest = new TestSuiteResource.InstrumentationTestSuiteRequest(runAsPackage);
 
 		try {
 			client.updateInstrumentationTestSuite(team, app, testSuite, appApkFile, testApkFile, instrumentationTestSuiteRequest);
 			log(String.format("Uploaded appAPK : %s and testAPK : %s", appApkFile.getAbsolutePath(), testApkFile.getAbsolutePath()));
 		} catch (Exception e) {
-			throw new BuildException(String.format("unable to update testSuite %s", testSuite));
+			e.printStackTrace();
+			throw new BuildException(String.format("unable to update testSuite %s ", testSuite));
 		}
-
+//
 //		long start = System.currentTimeMillis();
 //
 //		long suiteReportId = client.startInstrumentationTestSuite(team, app, testSuite);
@@ -98,10 +97,14 @@ public class UploadVersionTask extends AbstractTask {
 //		if (errors == 0) {
 //			log(msg.toString());
 //		} else {
-//			if (extension.getFailOnError()) {
-//				throw new GradleScriptException("failure during test suite execution of test suite " + testSuite,
+//			if (Boolean.parseBoolean(getProject().getProperty("failOnError"))) {
+//				throw new BuildException("failure during test suite execution of test suite " + testSuite,
 //						new Exception(msg.toString()));
+//			}
+//
 //		}
+//
+//		getProject().setProperty(response, Long.toString(versionId));
 
 
 //		try {

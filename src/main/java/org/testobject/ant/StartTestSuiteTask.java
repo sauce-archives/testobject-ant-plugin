@@ -2,6 +2,8 @@ package org.testobject.ant;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
+import org.apache.tools.ant.PropertyHelper;
+import org.testobject.api.TestObjectClient;
 
 // duplicate of deprecated StartBatchTask (tk)
 public class StartTestSuiteTask extends AbstractTask {
@@ -11,10 +13,14 @@ public class StartTestSuiteTask extends AbstractTask {
 
 	@Override
 	public void execute() throws BuildException {
-//		long suiteReportId = client.startBatch(getUserProperty(), getAppProperty(), testSuiteId);
-//		getProject().setProperty(response, Long.toString(suiteReportId));
-//
-//		log(String.format("test suite %d started, suiteReport id is %d", testSuiteId, suiteReportId), Project.MSG_INFO);
+
+		TestObjectClient client = (TestObjectClient) PropertyHelper.getProperty(getProject(), "org.testobject.client");
+
+		long suiteReportId = client.startInstrumentationTestSuite(getUserProperty(), getAppProperty(), testSuiteId); // TODO method changed, check if it works
+		getProject().setProperty(response, Long.toString(suiteReportId));
+
+		log(String.format("test suite %d started, suiteReport id is %d", testSuiteId, suiteReportId), Project.MSG_INFO);
+		getProject().setProperty("testobject.suite.report.id", Long.toString(suiteReportId));
 
 	}
 
