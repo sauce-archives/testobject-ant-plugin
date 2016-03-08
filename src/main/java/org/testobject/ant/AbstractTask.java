@@ -19,9 +19,6 @@ public abstract class AbstractTask extends Task {
 		initSSL();
 		initEndpoint();
 		initTestObjectClient();
-
-		authenticate();
-
 	}
 
 	private void initSSL() {
@@ -40,17 +37,10 @@ public abstract class AbstractTask extends Task {
 
 	private void initTestObjectClient() throws BuildException {
 		try {
-			this.client = TestObjectClient.Factory.create(baseUrl); // TODO proxy settings missing
+			this.client = TestObjectClient.Factory.create(baseUrl);
 		} catch (Exception e) {
 			throw new BuildException(String.format("unable to initialize testobject client for endpoint '%s'", endpoint), e);
 		}
-	}
-
-	protected void authenticate() { // TODO obsolete
-//		String sessionId = getProject().getProperty(Constants.PROPERTY_SESSION_ID);
-//		if (isNotNullNorEmpty(sessionId)) {
-//			this.client = this.client.setSessionId(sessionId);
-//		}
 	}
 
 	protected String getUserProperty() {
@@ -58,11 +48,7 @@ public abstract class AbstractTask extends Task {
 	}
 
 	protected String getAppProperty() {
-		if (getProject().getProperty(Constants.PROPERTY_APP) == null) {
-			return getProject().getProperty(Constants.PROPERTY_PROJECT);
-		} else {
 			return getProject().getProperty(Constants.PROPERTY_APP);
-		}
 	}
 
 	protected String getAppApkProperty() {

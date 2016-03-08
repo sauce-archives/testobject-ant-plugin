@@ -4,8 +4,6 @@
 	basedir=".">
 	<taskdef name="login" classname="org.testobject.ant.LoginTask" />
 	<taskdef name="uploadVersion" classname="org.testobject.ant.UploadVersionTask" />
-	<taskdef name="activateVersion" classname="org.tes`tobject.ant.ActivateVersionTask" />
-	<taskdef name="runCheckup" classname="org.testobject.ant.RunCheckupTask" />
 	<taskdef name="startTestSuite" classname="org.testobject.ant.StartTestSuiteTask" />
 	<taskdef name="downloadSuiteReport" classname="org.testobject.ant.GetSuiteReportTask" />
 
@@ -23,32 +21,12 @@
 			response="new.version" />
 	</target>
 
-	<target name="activateVersion" depends="uploadVersion">
-		<activateVersion versionId="${new.version}" />
-	</target>
-
-	<target name="runCheckup" depends="activateVersion">
-		<runCheckup />
-	</target>
-
-	<target name="startTestSuite" depends="activateVersion">
+	<target name="startTestSuite" depends="uploadVersion" >
 		<startTestSuite testSuiteId="1" />
 	</target>
 
 	<target name="downloadSuiteReport" depends="startTestSuite">
 		<downloadSuiteReport suiteReportId="${new.testSuite}" />
 	</target>
-
-	<!-- start deprecated tasks -->
-
-	<target name="startBatch" depends="activateVersion">
-		<startBatch batchId="1" response="new.batch" />
-	</target>
-
-	<target name="downloadBatchReport" depends="startBatch">
-		<downloadBatchReport batchReportId="${new.batch}" />
-	</target>
-
-	<!-- end deprecated tasks -->
 
 </project>

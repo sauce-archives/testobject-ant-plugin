@@ -3,7 +3,6 @@ package org.testobject.ant;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.PropertyHelper;
-import org.testobject.ant.client.BatchReport;
 import org.testobject.api.TestObjectClient;
 import org.testobject.rest.api.TestSuiteReport;
 
@@ -11,15 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// duplicate of deprecated GetBatchReportTask (tk)
 public class GetSuiteReportTask extends AbstractTask {
 
 	private long suiteReportId;
 	private String status = Constants.PROPERTY_TEST_SUITE_STATUS;
 	private String tests = Constants.PROPERTY_TEST_SUITE_TESTS;
 	private String errors = Constants.PROPERTY_TEST_SUITE_ERRORS;
-
-	//	private File out;
 
 	@Override
 	public void execute() throws BuildException {
@@ -49,20 +45,7 @@ public class GetSuiteReportTask extends AbstractTask {
 		getProject().setProperty(this.tests, Integer.toString(testSuites.tests));
 		getProject().setProperty(this.errors, Integer.toString(testSuites.errors));
 
-//		TODO look into
-//		saveReportToFile(testSuites);
-//
-//		log(String.format("report saved in file: %s", out.getAbsolutePath()), Project.MSG_INFO);
-
 	}
-
-	//	private void saveReportToFile(TestSuites testSuites) {
-	//		try (BufferedWriter output = new BufferedWriter(new FileWriter(out))) {
-	//			output.write(testSuites.toString());
-	//		} catch (IOException e) {
-	//			throw new BuildException(e);
-	//		}
-	//	}
 
 	private void processReportToTestCases(TestSuiteReport suiteReport, Map<String, String> devices, Map<Long, TestSuites.TestSuite> tests) {
 		List<TestSuiteReport.ReportEntry> reports = suiteReport.getReports();
@@ -116,10 +99,6 @@ public class GetSuiteReportTask extends AbstractTask {
 	public void setSuiteReportId(long suiteReportId) {
 		this.suiteReportId = suiteReportId;
 	}
-
-	//	public void setOut(File out) {
-	//		this.out = out;
-	//	}
 
 	public void setStatus(String status) {
 		this.status = status;

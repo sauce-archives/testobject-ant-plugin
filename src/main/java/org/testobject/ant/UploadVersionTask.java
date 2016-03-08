@@ -42,7 +42,7 @@ public class UploadVersionTask extends AbstractTask {
 		File appApkFile = new File("app.apk");
 		File testApkFile = new File("test.apk");
 
-		TestObjectClient client = (TestObjectClient)PropertyHelper.getProperty(getProject(), "org.testobject.client");
+		TestObjectClient client = (TestObjectClient) PropertyHelper.getProperty(getProject(), "org.testobject.client");
 
 		TestSuiteResource.InstrumentationTestSuiteRequest instrumentationTestSuiteRequest = new TestSuiteResource.InstrumentationTestSuiteRequest(runAsPackage);
 
@@ -53,72 +53,7 @@ public class UploadVersionTask extends AbstractTask {
 			e.printStackTrace();
 			throw new BuildException(String.format("unable to update testSuite %s ", testSuite));
 		}
-//
-//		long start = System.currentTimeMillis();
-//
-//		long suiteReportId = client.startInstrumentationTestSuite(team, app, testSuite);
-//
-//		TestSuiteReport suiteReport = client.waitForSuiteReport(team, app, suiteReportId);
-//
-//		writeSuiteReportXML(client, team, app, suiteReportId);
-//
-//		long end = System.currentTimeMillis();
-//
-//		String executionTime = getExecutionTime(start, end);
-//
-//		int errors = countErrors(suiteReport);
-//		String downloadURL = String.format("%s/users/%s/projects/%s/automationReports/%d/download/zip", baseUrl, team, app, suiteReportId);
-//		String reportURL = String
-//				.format("%s/#/%s/%s/espresso/%d/reports/%d", baseUrl.replace("/api/rest", ""), team, app, testSuite, suiteReportId);
-//
-//		StringBuilder msg = new StringBuilder();
-//
-//		msg.append("\n");
-//		msg.append(getTestsList(suiteReport));
-//		msg.append("----------------------------------------------------------------------------------");
-//		msg.append("\n");
-//		msg.append(String.format("Ran %d tests in %s", suiteReport
-//				.getReports().size(), executionTime));
-//		msg.append("\n");
-//		msg.append(suiteReport.getStatus());
-//		msg.append("\n");
-//
-//		if (errors > 0) {
-//			msg.append(String.format("List of failed Test (Total errors : %d)", errors));
-//			msg.append("\n");
-//			msg.append(failedTestsList(suiteReport, reportURL));
-//			msg.append("\n");
-//		}
-//
-//		msg.append(String.format("DownloadZIP URL: '%s'", downloadURL));
-//		msg.append("\n");
-//		msg.append(String.format("Report URL : '%s'", reportURL));
-//
-//		if (errors == 0) {
-//			log(msg.toString());
-//		} else {
-//			if (Boolean.parseBoolean(getProject().getProperty("failOnError"))) {
-//				throw new BuildException("failure during test suite execution of test suite " + testSuite,
-//						new Exception(msg.toString()));
-//			}
-//
-//		}
-//
-//		getProject().setProperty(response, Long.toString(versionId));
 
-
-//		try {
-//
-//			String uploadId = client.uploadFile(getUserProperty(), getAppProperty(), name, new FileInputStream(file));
-//			long versionId = client.createVersion(getUserProperty(), getAppProperty(), name, uploadId);
-//
-//			getProject().setProperty(response, Long.toString(versionId));
-//
-//			log(String.format("new version with id %d created", versionId), Project.MSG_INFO);
-//		} catch (FileNotFoundException e) {
-//			String cause = String.format("unable to find file '%s' for new version %s", file.getAbsolutePath(), name);
-//			throw new BuildException(cause, e);
-//		}
 	}
 
 	public void setName(String name) {
