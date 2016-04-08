@@ -14,16 +14,16 @@ public class LoginTask extends AbstractTask {
 
         try {
 
-            log(String.format("trying to log in with user %s and password %s", username, password), Project.MSG_INFO);
+            log(String.format("Trying to log in with user %s and password %s", username, password), Project.MSG_INFO);
             client.login(username, password);
 
             PropertyHelper.setNewProperty(getProject(), "org.testobject.client", client);
 
-            log(String.format("user %s successfully logged in", username), Project.MSG_INFO);
+            log(String.format("User %s successfully logged in", username), Project.MSG_INFO);
 
         } catch (Exception e) {
             log(String.format("Exception: %s", e.getMessage()), Project.MSG_ERR);
-            throw new BuildException(String.format("unable to login user %s into endpoint %s", username, endpoint), e);
+            throw new BuildException(String.format("Unable to login user %s into endpoint %s", username, endpoint), e);
         }
 
     }

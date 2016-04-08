@@ -59,6 +59,18 @@ public abstract class AbstractTask extends Task {
 		return getProject().getProperty(Constants.PROPERTY_TEST_APK);
 	}
 
+	protected String getTestSuiteProperty() {
+		return getProject().getProperty(Constants.PROPERTY_TEST_SUITE_ID);
+	}
+
+	protected String getTeamProperty() {
+		return getProject().getProperty(Constants.PROPERTY_TEAM) != null && !getProject().getProperty(Constants.PROPERTY_TEAM).isEmpty() ? getProject().getProperty(Constants.PROPERTY_TEAM) : getUserProperty();
+	}
+
+	protected String getRunAsPackageProperty() {
+		return getProject().getProperty(Constants.PROPERTY_RUN_AS_PACKAGE);
+	}
+
 	private static boolean isNotNullNorEmpty(String value) {
 		return value != null && value.trim().isEmpty() == false;
 	}

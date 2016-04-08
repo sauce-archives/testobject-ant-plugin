@@ -18,7 +18,7 @@ public class StartTestSuiteTask extends AbstractTask {
 		long suiteReportId = client.startInstrumentationTestSuite(getUserProperty(), getAppProperty(), testSuiteId);
 		getProject().setProperty(response, Long.toString(suiteReportId));
 
-		log(String.format("test suite %d started, suiteReport id is %d", testSuiteId, suiteReportId), Project.MSG_INFO);
+		log(String.format("Test suite %d started, suiteReport id is %d", testSuiteId, suiteReportId), Project.MSG_INFO);
 		getProject().setProperty("testobject.suite.report.id", Long.toString(suiteReportId));
 
 	}
